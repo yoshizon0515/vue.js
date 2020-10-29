@@ -1,0 +1,28 @@
+/*
+    トランジションは前半（Enterフェーズ）と後半（Leaveフェーズ）
+    の2つのフェーズに分かれ、それぞれ3つずつのスタイルが使われている。
+
+    前半（Enter)
+      ・トランジション開始前（opacity : 0;）
+      ・トランジション終了後（opacity : 1;）
+      ・トランジションの継続に必用なスタイル（transitionプロパティ）
+
+    後半（Leaveフェーズ）
+      ・トランジション開始前（opacity : 1;）
+      ・トランジション終了後（opacity : 0;）
+      ・トランジションの継続に必用なスタイル（transitionプロパティ）
+*/
+
+/* Enterフェーズ開始前と、Leaveフェーズ終了後のスタイル */
+.v-enter , .v-leave-to {
+    opacity : 0;
+}
+
+/* Enterフェーズ終了後と、Leaveフェーズ開始時のスタイル */
+.v-enter-to, .v-leave {
+    opacity : 1;
+}
+
+.v-enter-active , .v-leave-active {
+    transition : opacity 0.5s;
+}

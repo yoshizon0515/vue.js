@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>サンプル</title>
+  <link rel="stylesheet" href="transition.css">
+</head>
+<body>    
+    <div id="app">
+        <button v-on:click="show = !show">表示を切り替える</button>
+        <transition>
+            <p v-if="show">
+                吾輩は猫である。名前はまだ無い。<br>
+                どこで生まれたかとんと見当がつかぬ。<br>
+                何でも薄暗いじめじめとした所でニャーニャ―泣いていた事だけは記憶している。
+            </p>
+        </transition>
+    </div>
+
+</body>
+<script src="../../js/vue.js"></script>
+<!-- <script src="main.js"></script> -->
+<script>
+    var item = new Vue({
+        el :'#app' ,
+        data : {
+            show : true
+        }
+        });
+</script>
+<style>
+</style>
+</html>

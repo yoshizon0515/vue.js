@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>サンプル</title>
+</head>
+<body>    
+    <div id="app">
+        <p>ご希望到着日：{{arrival_date}}</p>
+        <input type="date" v-model="arrival_date" v-bind:min="min_date">
+    </div>
+
+</body>
+<script src="../../js/vue.js"></script>
+<!-- <script src="main.js"></script> -->
+<script>
+    
+    var item = new Vue({
+        el :'#app' ,
+        data : {
+            arrival_date : null ,
+            min_date : null
+        } ,
+        methods : {
+         
+            formatDate : function(dt) {
+                var y = dt.getFullYear();
+                var m = ('00' + (dt.getMonth() + 1)).slice(-2);
+                var d = ('00' + dt.getDate()).slice(-2);
+                var result = y + '-' + m + '-' + d;
+
+                return result;
+            }
+        } ,
+        created : function() {
+
+            var dt = new Date();
+            dt.setDate(dt.getDate() - 1);
+            //初期値を設定する。
+            this.arrival_date = this.formatDate(dt);
+            this.min_date = this.arrival_date;
+        }
+    });
+</script>
+</html>

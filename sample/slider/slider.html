@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>サンプル</title>
+</head>
+<body>    
+    <div id="app">
+    <div v-bind:class="{'color' : true}">
+            <fieldset>
+                <legend>スライダーで背景色変換</legend>
+                <input type="color" v-model="color"> {{color}} <br/>
+                赤：<input type="range" v-model.number="red" min="0" max="255" >
+                {{red}} <br>
+                緑：<input type="range" v-model.number="green" min="0" max="255" >
+                {{green}} <br>
+                青：<input type="range" v-model.number="blue" min="0" max="255" >
+                {{blue}} <br>
+            </fieldset>    
+        </div>
+    </div>
+
+</body>
+<script src="../../js/vue.js"></script>
+<!-- <script src="main.js"></script> -->
+<script>
+    
+    var item = new Vue({
+        el :'#app' ,
+        data : {
+            color : '#000000' ,
+            red : 0 ,
+            blue : 0 ,
+            green : 0
+        } ,
+        computed : {
+            //赤・緑・青を返すプロパティ
+            colorElement : function(){
+                return [this.red, this.green, this.blue];
+            }
+        } ,
+        watch : {
+            //赤・緑・青いずれかの変更を監視する。
+            colorElement : function(newRGB, oldRGB){
+
+                var r = ('00' + newRGB[0].toString(16).toUpperCase()).slice(-2);
+                var g = ('00' + newRGB[1].toString(16).toUpperCase()).slice(-2);
+                var b = ('00' + newRGB[2].toString(16).toUpperCase()).slice(-2);
+
+                this.color = ('#' + r + g + b);
+
+                var c = document.getElementsByClassName('color');
+
+                for(var d of c)
+                {
+                    d.style.backgroundColor = this.color;
+                }
+
+            } ,
+            color : function(newColor, oldColor){
+                this.red = parseInt(newColor.substr(1,2), 16)
+                this.green = parseInt(newColor.substr(3,2), 16)                
+                this.blue = parseInt(newColor.substr(5,2), 16)
+            }
+        }
+    });
+</script>
+</html>

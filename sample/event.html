@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>サンプル</title>
+</head>
+<body>    
+    <div id="app">
+        <p>マウスカーソルの位置{{point.x}} , {{point.y}}</p>
+    </div>
+
+</body>
+<script src="../../js/vue.js"></script>
+<!-- <script src="main.js"></script> -->
+<script>
+    
+    var item = new Vue({
+        el :'#app' ,
+        data : {
+            point : {x: 0, y: 0}
+        } ,
+        created : function(){
+            addEventListener('mousemove', this.mousemoveHandler)
+        } ,
+        beforeDestroy : function(){
+            removeEventListener('mousemove', this.mousemoveHandler)
+        } ,
+        methods : {
+            mousemoveHandler : function($event){
+                this.point.x = $event.clientX;
+                this.point.y = $event.clientY;
+            }
+
+        }
+
+        
+    });
+</script>
+</html>
