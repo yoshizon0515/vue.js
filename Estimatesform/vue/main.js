@@ -65,6 +65,19 @@ var app = new Vue({
         // オプション「写真スキャンニング」の税込金額を返すプロパティ
         taxedOpt4 : function(){
             return this.incTax(this.opt3_price);
-        }
+        }　,
+        // 基本料金（税込）を返す算出プロパティ
+        texedBasePrice : function() {
+            // TODO:基本料金（税込）を計算して返す
+         } , 
+         // オプション料金（税込）を返す算出プロパティ
+         texedOptPrice  : function() {
+             // TODO:オプション料金（税込）を計算して返す
+         } ,
+         // 合計金額（税込）を返す算出プロパティ
+         texedTotalPrice : function() {
+            // 基本料金（税込）とオプション料金（税込）の合計を返す
+            return (this.texedBasePrice * this.texedOptPrice);
+         }
     }
 });
