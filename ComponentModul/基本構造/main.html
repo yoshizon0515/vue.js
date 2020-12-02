@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>sample</title>
+    </head>
+    <body>
+        <div id="app">
+            <p>↓にコンポーネントが入ります。</p>
+            <show-hello></show-hello>
+            <!-- 親コンポーネントから、子コンポーネントへの要素の受け渡し-->
+            <mycomponent  v-bind:name="name" v-bind:price="calcPrice"></mycomponent>
+            <!--  子コンポーネントから親コンポーネントへのデータの受け渡し　-->
+            <my-product v-on:child-click="priceDown" v-bind:price="price"></my-product>
+        </div>
+        <script src="./../../js/vue.js"></script>
+        <script src="./show-hello.js"></script>
+        <script>
+            var app = new Vue({
+                el : '#app' ,
+                data : {
+                    name : '名前' ,
+                    price : '800' 
+                } ,
+                components : {
+                    // DOMで使用するタグ名 : 子コンポーネントの変数名
+                    mycomponent : myComponent ,
+                } ,
+                computed : {
+                    // 「price」はランダムな値を返すようにする。
+                    calcPrice : function(){
+                        return Math.floor(this.price * Math.random());
+                    }
+                }　,
+                methods : {
+                    priceDown : function(discount){
+
+                        discount = discount == undefined ? 100 : discount;
+                        
+                        this.price -= discount;
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
