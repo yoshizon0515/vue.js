@@ -11,7 +11,18 @@
             <!-- 親コンポーネントから、子コンポーネントへの要素の受け渡し-->
             <mycomponent  v-bind:name="name" v-bind:price="calcPrice"></mycomponent>
             <!--  子コンポーネントから親コンポーネントへのデータの受け渡し　-->
-            <my-product v-on:child-click="priceDown" v-bind:price="price"></my-product>
+           <!-- <my-product v-on:child-click="priceDown" v-bind:price="price"></my-product> --> 
+            <!--v-on:click.nativeを付けると、子コンポーネントのどこをクリックしてもイベントが発生するようになる  -->
+            <my-product v-on:click.native="priceDown2" v-bind:price="price"></my-product>
+
+            <my-row v-for="item in products" v-bind="item" v-bind:key="item.id"></my-row>
+            <!-- <tr is="my-row" v-for="item in products" v-bind="item" v-bind:key="item.id"></tr> -->
+            
+            <!-- select -->
+            <select>
+                <option is="my-option" v-for="item in products" v-bind="item" v-bind:key="item.id" ></option>
+            </select>
+
         </div>
         <script src="./../../js/vue.js"></script>
         <script src="./show-hello.js"></script>
@@ -20,7 +31,12 @@
                 el : '#app' ,
                 data : {
                     name : '名前' ,
-                    price : '800' 
+                    price : '800' ,
+                    products : [
+                        {id: 1, name: '商品A', price: 1280} ,
+                        {id: 2, name: '商品B', price: 1580} ,
+                        {id: 3, name: '商品B', price: 1980}
+                    ]
                 } ,
                 components : {
                     // DOMで使用するタグ名 : 子コンポーネントの変数名
@@ -33,12 +49,33 @@
                     }
                 }　,
                 methods : {
+                    // 子クラスから呼び出される「$emit()」の動作確認用
                     priceDown : function(discount){
 
                         discount = discount == undefined ? 100 : discount;
                         
                         this.price -= discount;
-                    }
+                    } ,
+                    // v-on:click.native動作確認用
+                    priceDown2 : function(){
+
+                        var discount = 0;
+
+                        // 基本50円値引き。ただし、500円以下になる場合はちょうど500円になるように値引きする。
+                        if((this.price -50) < 500)
+                        {
+                            // 現在の価格が530円の場合、値下げ幅は30円
+                            discount = this.price - 500;
+                        }
+                        else
+                        {
+                            // 現在の価格が550円以上の場合、値下げ幅は50円
+                            discount = 50;
+                        }
+
+                        this.price -= discount;
+                } 
+
                 }
             });
         </script>
