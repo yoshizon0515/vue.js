@@ -1,4 +1,4 @@
-Vue.component('product-lsit', {
+Vue.component('product-list', {
     template : `
         <div class="container">
             <product-header
@@ -21,7 +21,7 @@ Vue.component('product-lsit', {
             </div>
         </div>
     ` ,
-    component : {
+    components : {
         'product-header': productHeader ,
         'product' : product
     } ,
@@ -36,13 +36,12 @@ Vue.component('product-lsit', {
             sortOrder : 1
          }
     } ,
-    method : {
+    methods : {
         // 「並び替え」の選択肢が変わったときに呼び出されるメソッド
         sortOrderChanged : function(order) {
             // 現在の選択肢を新しい選択肢で上書きする
             this.sortOrder = order;
         }
-
     } ,
     computed : {
 
@@ -58,8 +57,29 @@ Vue.component('product-lsit', {
                     // 「セール対象」チェック有で、セール対象商品ではない場合
                     isShow = false; // この商品は表示しない
                 }
+
+                // 送料無料 チェック済み、かつ送料が0以上の場合
+                if(this.showDelvFree && this.products[i].delv > 0) {
+                    //非表示
+                    isShow = false;
+                }
+
+                // 表示対象の商品だけを新しい配列に追加する
+                if(isShow) {
+                    newList.push(this.products[i])
+                }
             }
 
+            // 配列のソート
+            if(this.sortaOrder == 1) {
+                // 元の配列通りにpushしているので並び替え済み
+            }
+            else if(this.sortOrder == 2) {
+                // 価格が安い順に並び変える
+                newList.sort((a, b) => { return a.price - b.price})
+            }
+            // ソート後の配列を返す。
+            return newList;
         }
     }
 })
