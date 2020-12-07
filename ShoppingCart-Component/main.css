@@ -1,0 +1,52 @@
+body {
+    background: #000;
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+
+.container {
+    width: 960px;
+    margin: 0 auto;
+}
+
+.pageTitle {
+    font-weight: normal;
+    border-bottom: 2px solid;
+}
+
+.search {
+    display: flex;
+    justify-content: space-between;
+}
+
+.search .target {
+    display: inline-block;
+}
+
+.search .target label {
+    margin-right: 15px;
+}
+
+.search .sort {
+    display: inline-block;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between ; 
+}
+
+.list::after {
+    content: "";
+    display: block;
+    width: 250px;
+}
+
